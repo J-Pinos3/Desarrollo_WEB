@@ -1,0 +1,11 @@
+{
+  "attachmentFolderPath": "/",
+  "readableLineLength": true,
+  "spellcheck": true,
+  "useMarkdownLinks": true,
+  "showFrontmatter": true,
+  "rightToLeft": false,
+  "newLinkFormat": "relative",
+  "strictLineBreaks": true,
+  "showLineNumber": false
+}

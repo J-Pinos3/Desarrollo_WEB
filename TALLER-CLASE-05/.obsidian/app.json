@@ -1,0 +1,9 @@
+{
+  "useMarkdownLinks": true,
+  "attachmentFolderPath": "image",
+  "spellcheckLanguages": [
+    "en-US",
+    "es-US",
+    "es"
+  ]
+}

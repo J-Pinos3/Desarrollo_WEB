@@ -25,13 +25,6 @@ console.log("Servidor Ok")
 
 
 
-
-
-
-
-
-
-
 const express = require("express")
 const app = express()
 
@@ -135,25 +128,71 @@ app.delete("/",(request, response)=>{
 
 //HANDLEBARS ES UN MOTOR DE PLANTILLAS
 
+//app.use(express.json())//el servidor trabaja con datos json
 
-const { engine } = require("express-handlebars")
-app.engine(".hbs", engine({
-    extname:"hbs"
-}))
+/*
+app.get("/cancion/:dato1/:dato2",(request, response)=>{
+    //:data debe ser igual a params.data
+    const {dato1, dato2} = request.params
+    response.send(`Banda ${dato1} canción ${dato2}`)
+})
 
 
-app.set("view engine",".hbs")
-app.set("views","./views")
+app.get("/calcu/:dato1/:dato2",(request, response)=>{
+    //:data debe ser igual a params.data
+    const {dato1, dato2} = request.params
+    //response.send(`La suma es:  ${parseInt(dato1) + parseInt(dato2)}`)
+    //response.send(`La resta es:  ${parseInt(dato1) - parseInt(dato2)}`)
+    response.send(`El producto es:  ${parseInt(dato1) * parseInt(dato2)}`)
+    //response.send(`La suma es:  ${Number(dato1) + parseInt(dato2)}`)
+})
+*/
 
-app.get("/", (response, request)=>{
-    request.render("home")
+/*
+app.get("/user/:profile/photo", (request, response )=>{
+    if(request.params.profile === "C++"){
+        response.sendFile("./pics/images.png",{
+            root:__dirname
+        })
+    }else{
+        response.send("Usuario no encontrado")
+    }
+})
+*/
+
+/*
+app.get("/user/:nombre/edad/:edad", (request, response )=>{
+
+    response.send(`El nombre es ${request.params.nombre} y tiene ${request.params.edad}`)
+})
+*/
+
+//SPOTIFY API https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids
+/*
+app.get("/search", (request, response )=>{
+    console.log(request.query)
+    
+    if(request.query.data === "js"){
+        response.send("libros de js")
+    }else{
+        response.send("libros de jar")
+    }
+
+})
+*/
+
+//middleware
+app.use((request, response, next)=>{
+    console.log(`Ruta invocada ${request.path} - método ${request.method}`)
+    next()
+})
+
+app.get("/profile",(request, response)=>{
+    response.send("Perfil del usuario")
 })
 
 
 app.listen(3000)
 console.log("server ok")
-
-
-
 
 

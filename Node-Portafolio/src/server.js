@@ -1,6 +1,7 @@
 const express = require("express")
 const path = require("path")
 const {engine} = require("express-handlebars")
+const methodOverride = require('method-override');
 
 
 //la app se ejecuta con la siguient elínea
@@ -20,21 +21,14 @@ app.set("view engine",".hbs")
 
 //middlewares
 app.use(express.urlencoded({extended : false}))
-app.use(require("./routes/index.routes"))
 
+app.use(methodOverride('_method'))
 //variables globales
 
 
 //rutas
-app.get("/", (request, response)=>{
-    response.render("index")
-})
-
-
-app.get("/login", (request, response)=>{
-    response.render("login")
-})
-
+app.use(require("./routes/index.routes"))
+app.use(require("./routes/portafolio.routes"))
 
 /*
 PUEDO CREAR OTRA RUTA CON GET

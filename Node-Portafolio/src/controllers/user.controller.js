@@ -1,7 +1,7 @@
 
 const User = require("../models/User")//importamos el modelo
 const passport = require("passport")
-
+const {sendMailToUser} = require("../config/nodemailer")
 
 const renderRegisterForm =(req,res)=>{
     res.render('user/registerForm')
@@ -25,6 +25,8 @@ const registerNewUser = async(req,res)=>{
 
     const newUser = await new User({name, email, password, confirmpassword})
     newUser.password = await newUser.encrypPassword(password)
+    const token = newUser.crearToken()
+    sendMailToUser(email, token)
     newUser.save()
     res.redirect("/user/login")
 
@@ -61,10 +63,22 @@ const logoutUser =(req,res)=>{
     })
 }
 
+
+const confirmEmail = async(req,res)=>{
+    if(!(req.params.token)) return res.send("Lo sentimos, no se puede validar la cuenta")
+    const userBDD = await User.findOne({token:req.params.token})
+    userBDD.token = null
+    userBDD.confirmEmail=true
+    await userBDD.save()
+    res.send('Token confirmado, ya puedes iniciar sesión');
+}
+
+
 module.exports={
     renderRegisterForm,
     registerNewUser,
     renderLoginForm,
     loginUser,
-    logoutUser
+    logoutUser,
+    confirmEmail
 }

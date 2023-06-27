@@ -21,6 +21,8 @@ passport.use(new LocalStrategy({
     if(!passwordUser){
         return done("Las contraseñas no coinciden", false)
     }
+
+    if(userBDD.confirmEmail===false) return done("Lo sentimos, debe verificar la cuenta en su correo electrónico",false)
     //retorna al usuario
     return done(null, userBDD)
 }))

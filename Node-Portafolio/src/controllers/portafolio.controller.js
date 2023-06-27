@@ -1,6 +1,6 @@
 const Portfolio = require('../models/portfolio')
 const fs = require("fs-extra")
-const {uploadImage} = require("../config/cloudinary")
+const {uploadImage, deleteImage} = require("../config/cloudinary")
 const renderAllPortafolios = async(request, response)=>{
     //response.send("Listar todos los portafolios")
     const portfolios = await Portfolio.find({user:request.user._id}).lean()
@@ -61,13 +61,36 @@ const updatePortafolio = async (req,res)=>{
         res.redirect("/portafolios")
     }
 
-    const {title, category,description} = req.body
-    await Portfolio.findByIdAndUpdate(req.params.id,{title,category,description})
+
+    if(req.files?.image){
+        if(!(req.files?.image)){
+            return res.send("Se requiere una imagen")
+        }
+        await deleteImage(portfolio.image.public_id)
+        const imageUpload = await uploadImage(req.files.image.tempFilePath)
+        const data={
+            title: req.body.title || portfolio.name,
+            category: req.body.category || portfolio.category,
+            description: req.body.description || portfolio.description,
+            image:{
+                public_id: imageUpload.public_id,
+                secure_url: imageUpload.secure_url
+            }
+        }
+
+        await fs.unlink(req.files.image.tempFilePath)
+        await Portfolio.findByIdAndUpdate(req.params.id, data)
+
+    }else{
+        const {title, category,description} = req.body
+        await Portfolio.findByIdAndUpdate(req.params.id,{title,category,description})
+    }
     res.redirect("/portafolios")
 }
 const deletePortafolio = async(req,res)=>{
     //res.send('Eliminar un nuevo portafolio')
-    await Portfolio.findByIdAndDelete(req.params.id).lean()
+    const portafolio = await Portfolio.findByIdAndDelete(req.params.id).lean()
+    await deleteImage(portafolio.image.public_id)
     res.redirect("/portafolios")
 }
 

@@ -1,4 +1,5 @@
 import {Router} from 'express'
+import verificarAutenticacion from "../middlewares/autenticacion.js"
 const router = Router()
 import {
     login,
@@ -22,10 +23,10 @@ router.get("/recuperar-password", recuperarPassword);
 router.get("/recuperar-password/:token", comprobarTokenPasword);
 router.post("/nuevo-password/:token", nuevoPassword);
 
-router.get("/perfil", perfil);
-router.put('/veterinario/actualizarpassword',actualizarPassword)
-router.get("/veterinario/:id", detalleVeterinario);
-router.put("/veterinario/:id", actualizarPerfil);
+router.get("/perfil",verificarAutenticacion, perfil);
+router.put('/veterinario/actualizarpassword',verificarAutenticacion, actualizarPassword)
+router.get("/veterinario/:id", verificarAutenticacion, detalleVeterinario);
+router.put("/veterinario/:id", verificarAutenticacion, actualizarPerfil);
 
 
 

@@ -10,6 +10,24 @@ const options = {
       version: "1.0.0",
       descripcion: "Documentation Api Vet",
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormar: "JWT",
+        },
+        apiKeyAuth: {
+          type: "apiKey",
+          in: "header",
+          name: "X-API-Key",
+        },
+      },
+    },
+    security:[{
+      bearerAuth:[],
+      apiKeyAuth:[]
+    }]
   },
   apis: ["src/routers/*.js", "src/database.js"],
 };

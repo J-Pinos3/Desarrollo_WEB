@@ -21,7 +21,7 @@ const router = Router()
  * /api/login:
  *   post:
  *     tags:
- *       - Login and Register
+ *       - Login and Register Vet
  *     requestBody:
  *       required: true
  *       content:
@@ -29,13 +29,12 @@ const router = Router()
  *           schema:
  *             type: object
  *             properties:
+ *               nombre: 
  *               email:
  *                 type: string
- *                 description: Email del usuario
  *                 example: test123@hotmail.com
  *               password:
  *                 type: string
- *                 description: Email del usuario
  *                 example: 123456
  *     responses:
  *       200:
@@ -53,15 +52,13 @@ const router = Router()
  *                   items: 
  *                     type: object
  */
-
 router.post('/login',login)
-
 /**
  * @openapi
  * /api/registro:
  *   post:
  *     tags:
- *       - Login and Register
+ *       - Login and Register Vet
  *     requestBody:
  *       required: true
  *       content:
@@ -69,13 +66,23 @@ router.post('/login',login)
  *           schema:
  *             type: object
  *             properties:
+ *               nombre:
+ *                 type: string
+ *                 example: David
+ *               apellido:
+ *                 type: string
+ *                 example: Basantes
+ *               direccion:
+ *                 type: string
+ *                 example: Magdalena
+ *               telefono:
+ *                 type: string
+ *                 example: 0990095964
  *               email:
  *                 type: string
- *                 description: Email del usuario
  *                 example: test123@hotmail.com
  *               password:
  *                 type: string
- *                 description: Email del usuario
  *                 example: 123456
  *     responses:
  *       200:
@@ -93,38 +100,7 @@ router.post('/login',login)
  *                   items: 
  *                     type: object
  */
-
 router.post('/registro',registro)
-
-/**
- * @openapi
- * /api/confirmar/:token:
- *   get:
- *     tags:
- *       - Veterinario
- *     parameters:
- *       - in1: path
- *         name: token
- *         required: true
- *         schema:
- *           type: string
- *         description: Token del usuario para confirmar su email
- *     responses:
- *       200:
- *         description: User register
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
- */
 
 router.get('/confirmar/:token',confirmEmail)
 
@@ -133,7 +109,7 @@ router.get('/confirmar/:token',confirmEmail)
  * /api/veterinarios:
  *   get:
  *     tags:
- *       - Veterinario
+ *       - Veterinario coming soon
  *     responses:
  *       200:
  *         description: OK
@@ -158,14 +134,7 @@ router.get('/veterinarios',listarVeterinarios)
  * /api/recuperar-password:
  *   post:
  *     tags:
- *       - Recover Password
- *     parameters:
- *       - in2: path
- *         name: mail
- *         required: true
- *         schema:
- *           type: string
- *         description: Mail del usuario que desea recuperar la contraseña
+ *       - Recover Password coming soon
  *     responses:
  *       200:
  *         description: OK
@@ -190,14 +159,7 @@ router.post('/recuperar-password',recuperarPassword)
  * /api/recuperar-password/:token:
  *   get:
  *     tags:
- *       - Recover Password
- *     parameters:
- *       - in3: path
- *         name: token
- *         required: true
- *         schema:
- *           type: string
- *         description: Token del usuario que desea recuperar la contraseña
+ *       - Recover Password coming soon
  *     responses:
  *       200:
  *         description: OK
@@ -222,16 +184,7 @@ router.get('/recuperar-password/:token',comprobarTokenPasword)
  * /api/nuevo-password/:token:
  *   post:
  *     tags:
- *       - Veterinario
- *     parameters:
- *       - in4: path
- *         name: password
- *         name: confirmpassword
- *         required: true
- *         schema:
- *           type: string
- *         description: Contraseña nueva y su confirmación. 
-
+ *       - Veterinario coming soon
  *     responses:
  *       200:
  *         description: OK
@@ -255,10 +208,9 @@ router.post('/nuevo-password/:token',nuevoPassword)
  * @openapi
  * /api/perfil:
  *   get:
+ *     summary: Obtener perfil del veterinario autenticado
  *     tags:
- *       - Veterinario
- *     security:
- *       - bearerAuth: []
+ *       - Veterinario coming soon
  *     responses:
  *       200:
  *         description: Perfil del veterinario obtenido exitosamente.
@@ -274,23 +226,6 @@ router.post('/nuevo-password/:token',nuevoPassword)
  *                   type: array 
  *                   items: 
  *                     type: object
- *     parameters:
- *       - in5: header
- *         name: Authorization
- *         description: Token de autenticación JWT en formato 'Bearer token'
- *         required: true
- *         schema:
- *           type: string
- *           format: jwt
- *       401:
- *         description: No se proporcionó un token de autenticación válido.
- *       403:
- *         description: Token de autenticación válido pero no tiene acceso al perfil.
- *     securitySchemes:
- *       bearerAuth:
- *         type: http
- *         scheme: bearer
- *         bearerFormat: JWT
  */
 
 router.get('/perfil',verificarAutenticacion,perfil)
@@ -300,28 +235,7 @@ router.get('/perfil',verificarAutenticacion,perfil)
  * /api/veterinario/actualizarpassword:
  *   put:
  *     tags:
- *       - Veterinario
- *     security:
- *       - bearerAuth: []
- *     securitySchemes:
- *       bearerAuth:
- *         type: http
- *         scheme: bearer
- *         bearerFormat: JWT 
- *      parameters:
- *       - in6: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: ID del veterinario del que se busca actualizar la contraseña. 
- *       - in7: header
- *         name: Authorization
- *         description: Token de autenticación JWT en formato 'Bearer token'
- *         required: true
- *         schema:
- *           type: string
- *           format: jwt
+ *       - Veterinario coming soon
  *     responses:
  *       200:
  *         description: OK
@@ -346,31 +260,22 @@ router.put('/veterinario/actualizarpassword',verificarAutenticacion,actualizarPa
  * /api/veterinario/:id:
  *   get:
  *     tags:
- *       - Veterinario
- *     security:
- *       - bearerAuth: []
+ *       - Veterinario coming soon
  *     securitySchemes:
  *       bearerAuth:
  *         type: http
  *         scheme: bearer
  *         bearerFormat: JWT 
  *     parameters:
- *       - in8: path
+ *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
  *         description: ID del usuario a obtener. 
- *       - in9: header
- *         name: Authorization
- *         description: Token de autenticación JWT en formato 'Bearer token'
- *         required: true
- *         schema:
- *           type: string
- *           format: jwt
  *     responses:
  *       200:
- *         description: Password successfully updated
+ *         description: OK
  *         content:
  *           application/json:
  *             schema:
@@ -384,35 +289,35 @@ router.put('/veterinario/actualizarpassword',verificarAutenticacion,actualizarPa
  *                   items: 
  *                     type: object
  */
-router.get('/veterinario/:id',verificarAutenticacion,detalleVeterinario)
+router.get('/veterinario/:id',verificarAutenticacion,detalleVeterinario)/**
+ * @openapi
+ * /api/recuperar-password:
+ *   post:
+ *     tags:
+ *       - Recover Password coming soon
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array 
+ *                   items: 
+ *                     type: object
+ */
 
 /**
  * @openapi
  * /api/veterinario/:id:
  *   put:
  *     tags:
- *       - Veterinario
- *     security:
- *       - bearerAuth: [] 
- *     securitySchemes: 
- *       bearerAuth: 
- *          type: http
- *          scheme: bearer
- *          bearerFormat: JWT
- *     parameters:
- *        - in10: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: ID del usuario a actualizar. 
- *       - in11: header
- *         name: Authorization
- *         description: Token de autenticación JWT en formato 'Bearer token'
- *         required: true
- *         schema:
- *           type: string
- *           format: jwt
+ *       - Veterinario coming soon
  *     responses:
  *       200:
  *         description: OK

@@ -1,0 +1,30 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "metro": [
+    {
+      "nombre": "la mariscal",
+      "sector": "la mariscal",
+      "salida": "la mariscal 41",
+      "llegada": "la ofelia",
+      "maquinista": "david",
+      "detalles": "la mariscal ofelia",
+      "id": "06cfda71-4668-480f-b8f5-7f768ddfcae3"
+    }
+  ]
+}
